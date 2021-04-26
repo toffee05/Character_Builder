@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Project 4</title>
+		<meta charset="UTF-8">
+		<meta name="author" content="Christopher Allen Abit">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<style>
+			body {
+				font-family: Arial;
+				overflow: auto;
+			}
+			
+			.outer {
+				display: table;
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 100%;
+				width: 100%;
+				
+			}
+
+			.middle {
+				display: table-cell;
+				vertical-align: middle;
+			}
+		
+			form {
+				display: block;
+				height: 100%;
+				width: 90vw;
+				margin-left: auto;
+				margin-right: auto;
+			}
+		
+			.question_container {
+				display: block;
+				margin: 35px auto 35px auto;
+				padding: 25px;
+				border: 1px solid black;
+				border-radius: 10px;
+			}
+			
+			.question {
+				display: block;
+				margin: 0px auto 0px auto;
+				width: 100%;
+				background-color: black;
+				color: white;
+				padding: 20px 0px;
+				font-size: 18.5px;
+				font-weight: bolder;
+				text-align: center;
+				border-radius: 5px;
+			}
+			
+			.question span {
+				display: inline-block;
+				font-size: 17px;
+				margin-bottom: 5px;
+			}
+			
+			.choices {
+				margin: 0px auto 0px auto;
+				padding: 10px;
+				width: 90%;
+				text-align: center;
+			}
+			
+			.clabel {
+				font-size: 17px;
+			}
+			
+			.hidden {
+				display: none;
+			}
+			
+			label {
+				display: inline-block;
+				user-select: none;
+				-moz-user-select: none;
+			}
+			
+			input {
+				margin: 0px 10px 0px 30px;
+				outline: none;
+			}
+			
+			input[name='class'] {
+				margin: 0px 10px 0px 5vw;
+			}
+			
+			#preview {
+				text-align: center;
+				margin: 0px auto 0px auto;
+				width: 70vw;
+				
+			}
+			
+			#preview div {
+				display: inline-block;
+				width: 25%;
+				height: 100%;
+				background-color: #4a4a4a;
+				margin: 0 5px 0 5px;
+				cursor: pointer;
+
+			}
+			
+			#preview div img {
+				display: block;
+				width: 100%;
+				image-rendering: pixelated;
+			}
+			
+			#mainQ {
+				
+			}
+			
+			.c1 {
+				margin-left: 0px !important;
+			}
+			
+			select.c1 {
+				width: 300px;
+				padding: 5px;
+			}
+			
+			.page_control {
+				text-align: center;
+			}
+			
+			button {
+				display: inline-block;
+				padding: 5px 10px;
+				
+			}
+			
+			#accessory_color {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="outer">
+			<div class="middle">
+				<div class="inner">
+					<form action="#">
+					
+						<div class="question_container" id="mainQ">
+						
+							<label class="question"><span>MAIN QUESTION</span><br>Which Would Be The Strongest Class?</label><br>
+							
+							<div class="choices" id="class">
+								<label class="class clabel"><input class="c1" type="radio" name="class" value="1" onclick="checkClass(this, 1)">Warrior</label>
+								<label class="class clabel"><input type="radio" name="class" value="2"  onclick="checkClass(this, 1)">Wizard</label>
+								<label class="class clabel"><input type="radio" name="class" value="3"  onclick="checkClass(this, 1)">Ranger</label>
+							</div><br>
+							
+							<div id="preview">
+								<div id="preview_cell_1" onclick="checkClass(1, 2)">
+									<img src="assets/images/warrior/swordPreview.png" draggable="false">
+								</div>
+								<div id="preview_cell_2" onclick="checkClass(2, 2)">
+									<img src="assets/images/wizard/grimoirePreview.png" draggable="false">
+								</div>
+								<div id="preview_cell_3" onclick="checkClass(3, 2)">
+									<img src="assets/images/ranger/arrowPreview.png" draggable="false">
+								</div>
+							</div><br>
+							
+							<div class="page_control">
+								<button type="button" onclick="proceed()">Proceed</button>
+							</div>
+							
+						</div>
+						
+						<div class="hidden subQ">
+						
+							<div class="question_container">
+								<label class="question">Which Would Be The Strongest Weapon?</label><br>
+								<div class="choices">
+									<label class="weapon clabel"><input class="c1" type="radio" name="weapon" value="Greatsword" onclick="checkSecond(this, 1)">a</label>
+									<label class="weapon clabel"><input type="radio" name="weapon" value="Battle Axe" onclick="checkSecond(this, 1)" >a</label>
+									<label class="weapon clabel"><input type="radio" name="weapon" value="War Hammer" onclick="checkSecond(this, 1)" >a</label>
+								</div>
+							</div>
+							
+							<div class="question_container">
+								<label class="question">Would You Like An Accessory? <span><i>(CAPE)</i></span></label><br>
+								<div class="choices">
+									<select class="c1" id="accessory" onchange="checkSecond(this, 2)">
+										<option value="0">Please Choose</option>
+										<option value="true">Accept</option>
+										<option value="false">Reject</option>
+									</select>
+									<input type="color" value="#ffffff" id="accessory_color" onchange="checkSecond(this, 3)">
+								</div>
+							</div>
+							
+							<div class="question_container">
+								<label class="question">Which Colors Would Fit The Armor?</label><br>
+								<div class="choices">
+									<label class="headgear clabel">Head Gear: <input class="c1" name="ar_color" type="color" value="#ffffff" onchange="checkSecond(this, 4)"></label>
+									<label class="bodygear clabel">Body Gear: <input class="c1" name="ar_color" type="color" value="#ffffff" onchange="checkSecond(this, 5)"></label><br><br>
+									<label class="leggear clabel">Leg Gear: <input class="c1" name="ar_color" type="color" value="#ffffff" onchange="checkSecond(this, 6)"></label>
+									<label class="footgear clabel">Foot Gear: <input class="c1" name="ar_color" type="color" value="#ffffff" onchange="checkSecond(this, 7)"></label>
+								</div>
+							</div>
+							
+							
+						</div>
+					</form>
+				
+					<div class="question_container hidden subQ">
+						<div class="page_control">
+							<button id="clear">Clear</button>
+							<button>Proceed</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script>
+			let current_page = 1, choices = {
+				"class": null,
+				"weapon": null,
+				"accessory": [null, null], //array for both bool and color of accessory
+				"ar_color": ["#ffffff", "#ffffff", "#ffffff", "#ffffff"]
+			}, value = [], label = [], preview = document.querySelectorAll("#preview div");
+		
+			function proceed() {
+				switch(current_page) {
+					case 1:
+						if(choices.class == null) {
+							alert("PLEASE CHOOSE A CLASS");
+							return;
+						}
+						document.getElementById("mainQ").style.display = "none";
+						document.getElementsByClassName("subQ")[0].classList.remove("hidden");
+						document.getElementsByClassName("subQ")[1].classList.remove("hidden")
+						document.getElementById("accessory").childNodes[1].hidden = true;;
+						break;
+				}
+			}
+			
+			function clear() {
+				document.querySelector("form").reset();
+				document.getElementById("accessory_color").style.display = "none";
+				
+			}
+			document.getElementById("clear").addEventListener("click", clear); //Inline onclick not working
+			
+			function checkClass(x, y) {
+				value[0] = document.querySelectorAll("input[name='weapon']");
+				label[0] = document.querySelectorAll(".weapon.clabel");
+				
+				if(y == 1) {
+					switch(Number(x.value)) {
+						case 1:
+							warrior();
+							break;
+						case 2:
+							wizard();
+							break;
+						case 3:
+							ranger();
+							break;
+					}
+				} else if(y == 2) {
+					switch(x) {
+						case 1:
+							document.querySelectorAll("input[name='class']")[0].checked = true;
+							warrior();
+							break;
+						case 2:
+							document.querySelectorAll("input[name='class']")[1].checked = true;
+							wizard();
+							break;
+						case 3:
+							document.querySelectorAll("input[name='class']")[2].checked = true;
+							ranger();
+							break;
+					}
+				}
+				
+				preview[0].style.backgroundColor = "#4a4a4a";
+				preview[1].style.backgroundColor = "#4a4a4a";
+				preview[2].style.backgroundColor = "#4a4a4a";
+				
+				switch(y) {
+					case 1:
+						document.getElementById("preview_cell_" + Number(x.value)).style.backgroundColor = "#737373";
+						break;
+					case 2:
+						document.getElementById("preview_cell_" + x).style.backgroundColor = "#737373";
+						break;
+				
+				}
+			}
+			
+			function checkSecond(x, y) {
+				console.log(x.value);
+				console.log(y);
+				switch(y) {
+					case 1:
+						choices.weapon = x.value;
+						break;
+					case 2:
+						choices.accessory[0] = (x.value == "true") ? true : false;
+						if(choices.accessory[0] == false) {
+							choices.accessory[1] = null;
+						}
+						document.getElementById("accessory_color").style.display = (choices.accessory[0]) ? "inline-block" : "none";
+						break;
+					case 3:
+						choices.accessory[1] = x.value;
+						break;
+					case 4:
+						choices.ar_color[0] = x.value;
+						break;
+					case 5:
+						choices.ar_color[1] = x.value;
+						break;
+					case 6:
+						choices.ar_color[2] = x.value;
+						break;
+					case 7:
+						choices.ar_color[3] = x.value;
+						break;
+				}
+			}
+			
+			
+			
+			function warrior() {
+				choices.class = "Warrior";
+				
+				value[0][0].value = "Greatsword";
+				label[0][0].childNodes[1].textContent = "Greatsword";
+				value[0][1].value = "Battle Axe";
+				label[0][1].childNodes[1].textContent = "Battle Axe";
+				value[0][2].value = "War Hammer";
+				label[0][2].childNodes[1].textContent = "War Hammer";
+				
+			}
+			
+			function wizard() {
+				choices.class = "Wizard";
+				
+				value[0][0].value = "Stave";
+				label[0][0].childNodes[1].textContent = "Stave";
+				value[0][1].value = "Grimoire";
+				label[0][1].childNodes[1].textContent = "Grimoire";
+				value[0][2].value = "Wand";
+				label[0][2].childNodes[1].textContent = "Wand";
+			}
+			
+			function ranger() {
+				choices.class = "Ranger";
+				
+				value[0][0].value = "Longbow";
+				label[0][0].childNodes[1].textContent = "Longbow";
+				value[0][1].value = "X-Bow";
+				label[0][1].childNodes[1].textContent = "X-Bow";
+				value[0][2].value = "Musket";
+				label[0][2].childNodes[1].textContent = "Musket";
+			}
+		</script>
+	</body>
+</html>

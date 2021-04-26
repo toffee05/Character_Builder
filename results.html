@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Project 4</title>
+		<meta charset="UTF-8">
+		<meta name="author" content="Christopher Allen Abit">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<style>
+			div {
+				float: left;
+				height: 50px;
+				width: 50px;
+			}
+			
+			#container {
+				float: none;
+				width: 150px;
+				background-color: black;
+			}
+			
+			#a1 {
+				background-color: rgba(201, 76, 76, 1);
+				color: red;
+			}
+			
+			#a2 {
+				background-color: rgba(201, 76, 76, 0.6);
+			}
+			
+			#a3 {
+				background-color: rgba(201, 76, 76, 0.3);
+			}
+			input {
+				height: 30px;
+				width: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<form action="#action">
+			
+			<input type="color" id="color" onchange="myFunction(this)">
+		</form>
+		<div id="container">
+			<div id="a1"> </div>
+			<div id="a2"> </div>
+			<div id="a3"> </div>
+		</div>
+		<script>
+			let a1 = document.getElementById("a1"), 
+				a2 = document.getElementById("a2"), 
+				a3 = document.getElementById("a3");
+			
+			function myFunction(color_input) {
+				let color = color_input.value.substring(1).match(/.{1,2}/g),
+				r = parseInt(color[0], 16);
+				g = parseInt(color[1], 16);
+				b = parseInt(color[2], 16);
+				
+				a1.style.backgroundColor = "rgba("+ r + "," + g + "," + b + "," + 1 + ")";
+				a2.style.backgroundColor = "rgba("+ r + "," + g + "," + b + "," + 0.66 + ")";
+				a3.style.backgroundColor = "rgba("+ r + "," + g + "," + b + "," + 0.33 + ")";
+			}
+		</script>
+	</body>
+</html>
